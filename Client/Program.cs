@@ -2,6 +2,7 @@ using Client.Components;
 using Client.Services;
 using Client.Services.Data_Service;
 using EurekaDb.Context;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 
@@ -29,6 +30,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions()
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 app.UseStaticFiles();
 app.UseAntiforgery();
