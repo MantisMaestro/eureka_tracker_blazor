@@ -15,5 +15,5 @@ public interface IDataService
     
     public Task<List<PlayerPlaytime>> GetMapTopPlayers(int limit);
     
-    public Task<PlayerQuery> GetPlayerSessions(string playerName);
+    public Task<PlayerQuery?> GetPlayerSessions(string playerName);
 }

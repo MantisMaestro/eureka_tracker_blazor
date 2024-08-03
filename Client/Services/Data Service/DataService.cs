@@ -44,11 +44,14 @@ public class DataService(EurekaContext eurekaContext) : IDataService
         return await GetTopPlayers(limit, mapStart, null);
     }
 
-    public async Task<PlayerQuery> GetPlayerSessions(string playerName)
+    public async Task<PlayerQuery?> GetPlayerSessions(string playerName)
     {
-        var playerId = eurekaContext.Players
-            .First(x => x.Name == playerName)
-            .Id;
+        var player = await eurekaContext.Players
+            .FirstOrDefaultAsync(x => x.Name == playerName);
+
+        if (player is null) return null;
+        
+        var playerId = player?.Id;
 
         var startDate = DateTime.Today.AddMonths(-1);
         var startDateOnly = DateOnly.FromDateTime(startDate);
