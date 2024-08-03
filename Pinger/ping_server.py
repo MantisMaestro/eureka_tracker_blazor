@@ -31,6 +31,7 @@ def update_database(data, db_connection):
 
 def update_players(data, db_connection):
     conn = sqlite3.connect(db_connection)
+    conn.set_trace_callback(print)
     c = conn.cursor()
 
     c.execute("UPDATE players SET last_online=CURRENT_TIMESTAMP WHERE last_online = 'now'")
@@ -42,8 +43,8 @@ def update_players(data, db_connection):
                 "INSERT INTO players (id, name, last_online, total_play_time) VALUES (?, ?, ?, 60)",
                 (player['id'], player['name'], 'now'))
         else:
-            c.execute("UPDATE players SET last_online=?, total_play_time=total_play_time+60 WHERE id=?",
-                      ('now', player['id']))
+            c.execute("UPDATE players SET last_online=?, total_play_time=total_play_time+60, name=? WHERE id=?",
+                      ('now', player['name'], player['id']))
 
     conn.commit()
     conn.close()
@@ -51,6 +52,7 @@ def update_players(data, db_connection):
 
 def update_player_sessions(data, db_connection):
     conn = sqlite3.connect(db_connection)
+    conn.set_trace_callback(print)
     c = conn.cursor()
 
     date = datetime.now().strftime("%Y-%m-%d")
