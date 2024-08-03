@@ -1,0 +1,47 @@
+﻿<MudCard Class="player-card">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudAvatar Color="Color.Secondary" Square="true">
+                <MudImage Src="@PlayerAvatarUrl"></MudImage>
+            </MudAvatar>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1">@PlayerName</MudText>
+            @if (PlayTimeSeconds != null)
+            {
+                <MudText Typo="Typo.body2">@FormattedPlayTime()</MudText>
+            }
+        </CardHeaderContent>
+    </MudCardHeader>
+</MudCard>
+
+@code {
+    [Parameter] public string? PlayerName { get; set; }
+
+    [Parameter] public string? PlayTimeSeconds { get; set; }
+
+    private string PlayerAvatarUrl => $"https://cravatar.eu/helmavatar/{PlayerName}/64.png";
+    
+    private string FormattedPlayTime()
+    {
+        var timeSpan = TimeSpan.FromSeconds(int.Parse(PlayTimeSeconds ?? string.Empty));
+        var result = string.Empty;
+        
+        if (timeSpan.Days > 0)
+        {
+            result += timeSpan.Days > 1 ? $"{timeSpan.Days} Days " : $"{timeSpan.Days} Day ";
+        }
+        
+        if (timeSpan.Hours > 0)
+        {
+            result += timeSpan.Hours > 1 ? $"{timeSpan.Hours} Hours " : $"{timeSpan.Hours} Hour ";
+        }
+        
+        if (timeSpan.Minutes > 0)
+        {
+            result += timeSpan.Minutes > 1 ? $"{timeSpan.Minutes} Minutes " : $"{timeSpan.Minutes} Minute ";
+        }
+
+        return result;
+    }
+}

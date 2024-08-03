@@ -1,19 +1,20 @@
 using Client.Components;
-using Client.Context;
-using Client.FirebaseMigration;
+using Client.Services;
+using Client.Services.Data_Service;
+using EurekaDb.Context;
 using Microsoft.EntityFrameworkCore;
-
-
-// var migrateFirebase = new FirebaseProvider();
-// await migrateFirebase.BuildFirebaseModel();
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddDbContext<GearHubContext>(
+builder.Services.AddMudServices();
+builder.Services.AddScoped<FirebaseService>();
+builder.Services.AddScoped<IDataService, DataService>();
+
+builder.Services.AddDbContext<EurekaContext>(
     e => e.UseSqlite(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -22,7 +23,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseExceptionHandler("/Error", true);
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -34,5 +35,4 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-
 app.Run();
