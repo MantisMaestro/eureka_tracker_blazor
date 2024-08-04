@@ -149,8 +149,8 @@
 
     private async Task ViewMapTopPlayers()
     {
-        _topPlayers = await DataService.GetMonthTopPlayers(10);
-        _selectedTime = "This Month";
+        _topPlayers = await DataService.GetMapTopPlayers(10);
+        _selectedTime = "On This Map";
     }
 
     private async Task SearchPlayer(MouseEventArgs obj)
