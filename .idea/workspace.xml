@@ -9,45 +9,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1b39181-bb0d-4a05-8d90-18cbe91e9527" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.EurekaTracker2/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.EurekaTracker2/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/EurekaTracker2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/3157ba82-0d97-4682-a6a3-6c478d8e8f03.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/3157ba82-0d97-4682-a6a3-6c478d8e8f03/storage_v2/_src_/schema/main.uQUzAA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/Services/FirebaseService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/wwwroot/images/img1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/wwwroot/images/img2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaDb/Context/EurekaContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaDb/EurekaDb.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaDb/Migrations/Player.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PingAPI/Jobs/PingJob.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PingAPI/PingAPI.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PingAPI/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pinger/config.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pinger/ping_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Client.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Components/App.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Components/App.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Components/Layout/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Components/Layout/MainLayout.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Components/Layout/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Components/Layout/NavMenu.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Components/Pages/Counter.razor" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Components/Pages/Home.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Components/Pages/Home.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Components/Pages/Weather.razor" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Components/_Imports.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Components/_Imports.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/FirebaseMigration/FirebaseProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/FirebaseMigration/FirebaseProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/FirebaseMigration/Models/FirebaseDayRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/FirebaseMigration/Models/FirebaseDayRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/FirebaseMigration/Models/FirebasePlayerSession.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/FirebaseMigration/Models/FirebasePlayerSession.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Migrations/PlayerSession.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EurekaDb/Migrations/PlayerSession.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EurekaTracker2.sln" beforeDir="false" afterPath="$PROJECT_DIR$/EurekaTracker2.sln" afterDir="false" />
+    <list default="true" id="b1b39181-bb0d-4a05-8d90-18cbe91e9527" name="Changes" comment="Update config.yaml">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EurekaTracker2/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EurekaTracker2/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,11 +124,35 @@
       <workItem from="1721930510976" duration="6119000" />
       <workItem from="1722615829695" duration="144000" />
       <workItem from="1722623194659" duration="51000" />
+      <workItem from="1722695039772" duration="1226000" />
+      <workItem from="1722702632158" duration="604000" />
     </task>
+    <task id="LOCAL-00001" summary="Fix script">
+      <option name="closed" value="true" />
+      <created>1722700722343</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1722700722343</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update config.yaml">
+      <option name="closed" value="true" />
+      <created>1722700776806</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722700776806</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fix script" />
+    <MESSAGE value="Update config.yaml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update config.yaml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -178,6 +166,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/EurekaTracker2$ping_server.coverage" NAME="ping_server Coverage Results" MODIFIED="1722623206164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pinger" />
+    <SUITE FILE_PATH="coverage/EurekaTracker2$ping_server.coverage" NAME="ping_server Coverage Results" MODIFIED="1722700638007" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pinger" />
   </component>
 </project>
