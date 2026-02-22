@@ -12,11 +12,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddMudServices();
-
 builder.Services.AddScoped<IDataService, DataService>();
-
 builder.Services.AddHostedService<PingService>();
-
 builder.Services.AddDbContext<EurekaContext>(e => e.UseSqlite(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -30,6 +27,13 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", true);
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+
+if (app.Environment.IsDevelopment())
+{
+    var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<EurekaContext>();
+    db.Database.EnsureCreated();
 }
 
 // app.UseHttpsRedirection();

@@ -49,6 +49,8 @@ project.fragment.lock.json
 artifacts/
 **/Properties/launchSettings.json
 
+*.db
+
 # VS Code
 .vscode/
 
