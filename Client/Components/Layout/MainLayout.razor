@@ -7,7 +7,7 @@
 <MudSnackbarProvider/>
 
 <MudLayout>
-    <MudAppBar Elevation="1">
+    <MudAppBar Elevation="1" Color="Color.Default">
         <MudSpacer />
         <CascadingValue Value="_isDarkMode">
             <NavMenu IsDarkModeChanged="ChangeTheme"/>
@@ -33,7 +33,8 @@
             Secondary = MudColor.Parse("#4CAF50"),
             Background = MudColor.Parse("rgb(246, 254, 250)"),
             Surface = MudColor.Parse("#FFFFFF"),
-            AppbarBackground = MudColor.Parse("#F0F8F4")
+            AppbarBackground = MudColor.Parse("#F0F8F4"),
+            AppbarText = MudColor.Parse("#424242")
         },
         PaletteDark = new PaletteDark
         {
@@ -41,7 +42,8 @@
             Secondary = MudColor.Parse("#4CAF50"),
             Background = MudColor.Parse("#36322D"),
             Surface = MudColor.Parse("#423C36"),
-            AppbarBackground = MudColor.Parse("#2C2824")
+            AppbarBackground = MudColor.Parse("#2C2824"),
+            AppbarText = MudColor.Parse("#E0E0E0")
         },
         LayoutProperties = new LayoutProperties
         {
