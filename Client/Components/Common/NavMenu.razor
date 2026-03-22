@@ -1,36 +1,23 @@
-<nav class="horizontal-nav mb-4">
-    <ul>
-        <li>
-            <MudButton Href="/">
-                Home
-            </MudButton>
-        </li>
-        <li>
-            <MudButton Href="http://173.240.152.72:25575/?world=world">
-                Map
-            </MudButton>
-        </li>
-        <li>
-            <MudButton Href="/portals">
-                Portals
-            </MudButton>
-        </li>
-        <li>
-            <MudButton Href="/players">
-                Players
-            </MudButton>
-        </li>
-        <li>
-            <MudButton Href="https://drive.google.com/drive/folders/1zRovaYL_93vQK56hxJDabFZcN3e6rhbk?usp=drive_link">
-                Map Downloads
-            </MudButton>
-        </li>
-        <li>
-            <MudIconButton Icon="@(IsDarkMode ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.LightMode)"
-                           @onclick="ToggleTheme"/>
-        </li>
-    </ul>
-</nav>
+<div class="d-flex align-center" style="gap: 16px;">
+    <MudButton Href="/" Color="Color.Inherit">
+        Home
+    </MudButton>
+    <MudButton Href="http://173.240.152.72:25575/?world=world" Color="Color.Inherit">
+        Map
+    </MudButton>
+    <MudButton Href="/portals" Color="Color.Inherit">
+        Portals
+    </MudButton>
+    <MudButton Href="/players" Color="Color.Inherit">
+        Players
+    </MudButton>
+    <MudButton Href="https://drive.google.com/drive/folders/1zRovaYL_93vQK56hxJDabFZcN3e6rhbk?usp=drive_link" Color="Color.Inherit">
+        Map Downloads
+    </MudButton>
+    <MudIconButton Icon="@(IsDarkMode ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.LightMode)"
+                   Color="Color.Inherit"
+                   @onclick="ToggleTheme"/>
+</div>
 
 @code {
     [CascadingParameter] private bool IsDarkMode { get; set; }

@@ -7,12 +7,15 @@
 <MudSnackbarProvider/>
 
 <MudLayout>
-    <MudMainContent Style="padding-top: 80px;">
-        <MudContainer MaxWidth="MaxWidth.Large">
-
-            <CascadingValue Value="_isDarkMode">
-                <NavMenu IsDarkModeChanged="ChangeTheme"/>
-            </CascadingValue>
+    <MudAppBar Elevation="1">
+        <MudSpacer />
+        <CascadingValue Value="_isDarkMode">
+            <NavMenu IsDarkModeChanged="ChangeTheme"/>
+        </CascadingValue>
+        <MudSpacer />
+    </MudAppBar>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Large" Class="pt-8 pb-8">
 
             @Body
 
@@ -26,11 +29,19 @@
     {
         PaletteLight = new PaletteLight
         {
-            Background = MudColor.Parse("rgb(246, 254, 250)")
+            Primary = MudColor.Parse("#FF8C00"),
+            Secondary = MudColor.Parse("#4CAF50"),
+            Background = MudColor.Parse("rgb(246, 254, 250)"),
+            Surface = MudColor.Parse("#FFFFFF"),
+            AppbarBackground = MudColor.Parse("#F0F8F4")
         },
         PaletteDark = new PaletteDark
         {
-            Background = MudColor.Parse("#36322D")
+            Primary = MudColor.Parse("#FF8C00"),
+            Secondary = MudColor.Parse("#4CAF50"),
+            Background = MudColor.Parse("#36322D"),
+            Surface = MudColor.Parse("#423C36"),
+            AppbarBackground = MudColor.Parse("#2C2824")
         },
         LayoutProperties = new LayoutProperties
         {
