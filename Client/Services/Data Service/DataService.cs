@@ -1,7 +1,7 @@
-﻿using Client.Extensions;
+using Client.Extensions;
 using Client.Models;
 using EurekaDb.Context;
-using EurekaDb.Migrations;
+using EurekaDb.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Client.Services.Data_Service;
@@ -10,9 +10,10 @@ public class DataService(EurekaContext eurekaContext) : IDataService
 {
     public async Task<List<Player>> GetOnlinePlayers()
     {
+        var threshold = DateTime.UtcNow.AddSeconds(-90);
         return await eurekaContext
             .Players
-            .Where(x => x.LastOnline == "now")
+            .Where(x => x.LastOnline >= threshold)
             .ToListAsync();
     }
 
@@ -49,8 +50,6 @@ public class DataService(EurekaContext eurekaContext) : IDataService
 
     public async Task<List<PlayerPlaytime>> GetMapTopPlayers(int limit, DateOnly currentMapStartDate)
     {
-        // TODO: Have this based on a config file or the database!
-        var mapStart = new DateOnly(2024, 07, 26);
         return await GetTopPlayers(limit, currentMapStartDate, null);
     }
 
@@ -61,7 +60,7 @@ public class DataService(EurekaContext eurekaContext) : IDataService
 
         if (player is null) return null;
 
-        var playerId = player?.Id;
+        var playerId = player.Id;
 
         var startDate = DateTime.Today.AddMonths(-1);
         var startDateOnly = DateOnly.FromDateTime(startDate);
@@ -93,23 +92,18 @@ public class DataService(EurekaContext eurekaContext) : IDataService
         };
     }
 
-    public async Task UpdateLedger(MCStatus.Player[] playerData)
+    public async Task UpdateLedger(MCStatus.Player[] playerData, int elapsedSeconds)
     {
-        var now = DateTime.UtcNow.ToShortDateString();
-
-        await eurekaContext
-            .Players
-            .Where(x => x.LastOnline == "now")
-            .ExecuteUpdateAsync(x => x.SetProperty(k => k.LastOnline, now));
-
         foreach (var player in playerData)
         {
-            await UpdatePlayers(player.Name, player.Uuid.ToString());
-            await UpdateSessions(player.Name, player.Uuid.ToString());
+            await UpdatePlayers(player.Name, player.Uuid.ToString(), elapsedSeconds);
+            await UpdateSessions(player.Name, player.Uuid.ToString(), elapsedSeconds);
         }
+
+        await eurekaContext.SaveChangesAsync();
     }
 
-    public async Task UpdatePlayers(string playerName, string playerId)
+    public async Task UpdatePlayers(string playerName, string playerId, int elapsedSeconds)
     {
         var player = await eurekaContext.Players
             .FirstOrDefaultAsync(x => x.Id == playerId);
@@ -119,60 +113,56 @@ public class DataService(EurekaContext eurekaContext) : IDataService
             await eurekaContext.AddAsync(new Player
             {
                 Id = playerId,
-                Name = playerName
+                Name = playerName,
+                LastOnline = DateTime.UtcNow,
+                TotalPlayTime = elapsedSeconds
             });
         }
         else
         {
-            player.LastOnline = "now";
+            player.LastOnline = DateTime.UtcNow;
             player.Name = playerName;
-            player.TotalPlayTime += 60;
+            player.TotalPlayTime = (player.TotalPlayTime ?? 0) + elapsedSeconds;
         }
-
-        await eurekaContext.SaveChangesAsync();
     }
 
-    public async Task UpdateSessions(string playerName, string playerId)
+    public async Task UpdateSessions(string playerName, string playerId, int elapsedSeconds)
     {
-        var session = eurekaContext
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        var session = await eurekaContext
             .PlayerSessions
-            .FirstOrDefault(x => (x.PlayerId == playerId) & (x.Date == DateOnly.FromDateTime(DateTime.Today)));
+            .FirstOrDefaultAsync(x => x.PlayerId == playerId && x.Date == today);
 
         if (session is null)
-            eurekaContext.PlayerSessions.Add(new PlayerSession
+        {
+            await eurekaContext.PlayerSessions.AddAsync(new PlayerSession
             {
                 PlayerId = playerId,
-                Date = DateOnly.FromDateTime(DateTime.Today),
-                TimePlayedInSession = 60
+                Date = today,
+                TimePlayedInSession = elapsedSeconds
             });
+        }
         else
-            session.TimePlayedInSession += 60;
-
-        await eurekaContext.SaveChangesAsync();
+        {
+            session.TimePlayedInSession = (session.TimePlayedInSession ?? 0) + elapsedSeconds;
+        }
     }
 
     private async Task<List<PlayerPlaytime>> GetTopPlayers(int limit, DateOnly startDate, DateOnly? endDate)
     {
         endDate ??= DateOnly.FromDateTime(DateTime.Today);
 
-        var sessionsThisWeek = await eurekaContext
-            .PlayerSessions
+        return await eurekaContext.PlayerSessions
             .Where(x => x.Date >= startDate && x.Date <= endDate)
-            .Include(x => x.Player)
-            .ToListAsync();
-
-        var groupedPlayerSessions = sessionsThisWeek.GroupBy(x => x.PlayerId);
-
-        var result = new List<PlayerPlaytime>();
-        foreach (var groupedPlayerSession in groupedPlayerSessions)
-            result.Add(new PlayerPlaytime
+            .GroupBy(x => new { x.PlayerId, x.Player.Name })
+            .Select(g => new PlayerPlaytime
             {
-                PlayerId = groupedPlayerSession.Key,
-                PlayerName = groupedPlayerSession.First().Player.Name,
-                Playtime = groupedPlayerSession.Sum(x => x.TimePlayedInSession ?? 0)
-            });
-
-        result = result.OrderByDescending(x => x.Playtime).ToList();
-        return result.Take(limit).ToList();
+                PlayerId = g.Key.PlayerId,
+                PlayerName = g.Key.Name,
+                Playtime = g.Sum(x => x.TimePlayedInSession ?? 0)
+            })
+            .OrderByDescending(x => x.Playtime)
+            .Take(limit)
+            .ToListAsync();
     }
 }

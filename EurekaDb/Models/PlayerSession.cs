@@ -1,4 +1,4 @@
-﻿namespace EurekaDb.Migrations;
+﻿namespace EurekaDb.Models;
 
 public class PlayerSession
 {

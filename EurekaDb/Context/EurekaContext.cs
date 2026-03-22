@@ -1,4 +1,4 @@
-﻿using EurekaDb.Migrations;
+﻿using EurekaDb.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EurekaDb.Context;
