@@ -1,5 +1,5 @@
-﻿using Client.Models;
-using EurekaDb.Migrations;
+using Client.Models;
+using EurekaDb.Models;
 
 namespace Client.Services.Data_Service;
 
@@ -19,9 +19,9 @@ public interface IDataService
 
     public Task<PlayerQuery?> GetPlayerSessions(string playerName);
 
-    public Task UpdateLedger(MCStatus.Player[] playerData);
+    public Task UpdateLedger(MCStatus.Player[] playerData, int elapsedSeconds);
 
-    public Task UpdatePlayers(string playerName, string playerId);
+    public Task UpdatePlayers(string playerName, string playerId, int elapsedSeconds);
 
-    public Task UpdateSessions(string playerName, string playerId);
+    public Task UpdateSessions(string playerName, string playerId, int elapsedSeconds);
 }

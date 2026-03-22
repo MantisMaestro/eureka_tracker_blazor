@@ -29,11 +29,40 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<EurekaContext>();
-    db.Database.EnsureCreated();
+    var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    var db = services.GetRequiredService<EurekaContext>();
+
+    try
+    {
+        var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
+        var migrations = pendingMigrations.ToList();
+        if (migrations.Any())
+        {
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            if (connectionString?.Contains("Data Source=") == true)
+            {
+                var dbPath = connectionString.Replace("Data Source=", "").Trim();
+                if (File.Exists(dbPath))
+                {
+                    var backupPath = $"{dbPath}.{DateTime.UtcNow:yyyyMMddHHmmss}.bak";
+                    File.Copy(dbPath, backupPath);
+                    logger.LogInformation("Database backup created at: {Path}", backupPath);
+                }
+            }
+
+            logger.LogInformation("Applying {Count} database migration(s)...", migrations.Count);
+            await db.Database.MigrateAsync();
+            logger.LogInformation("Database migrations applied successfully.");
+        }
+    }
+    catch (Exception ex)
+    {
+        logger.LogCritical(ex, "An error occurred while migrating the database. The app will not start to prevent data corruption.");
+        throw;
+    }
 }
 
 // app.UseHttpsRedirection();

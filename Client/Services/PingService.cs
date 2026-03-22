@@ -38,6 +38,6 @@ public class PingService(
         var status = await ServerListClient.GetStatusAsync(address, Convert.ToUInt16(port));
 
         var dataService = scope.ServiceProvider.GetRequiredService<IDataService>();
-        await dataService.UpdateLedger(status.Players.Sample);
+        await dataService.UpdateLedger(status.Players.Sample, 60);
     }
 }

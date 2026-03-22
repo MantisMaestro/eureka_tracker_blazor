@@ -1,4 +1,4 @@
-﻿using EurekaDb.Migrations;
+using EurekaDb.Models;
 
 namespace Client.Models;
 

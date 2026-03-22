@@ -1,4 +1,4 @@
-﻿namespace EurekaDb.Migrations;
+﻿namespace EurekaDb.Models;
 
 public class Player
 {
@@ -6,7 +6,7 @@ public class Player
 
     public string Name { get; set; } = null!;
 
-    public string? LastOnline { get; set; }
+    public DateTime? LastOnline { get; set; }
 
     public int? TotalPlayTime { get; set; }
 
