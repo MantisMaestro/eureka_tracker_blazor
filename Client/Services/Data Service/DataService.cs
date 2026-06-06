@@ -53,45 +53,6 @@ public class DataService(EurekaContext eurekaContext) : IDataService
         return await GetTopPlayers(limit, currentMapStartDate, null);
     }
 
-    public async Task<PlayerQuery?> GetPlayerSessions(string playerName)
-    {
-        var player = await eurekaContext.Players
-            .FirstOrDefaultAsync(x => x.Name == playerName);
-
-        if (player is null) return null;
-
-        var playerId = player.Id;
-
-        var startDate = DateTime.Today.AddMonths(-1);
-        var startDateOnly = DateOnly.FromDateTime(startDate);
-
-        var sessions = await eurekaContext.PlayerSessions
-            .Where(x => x.PlayerId == playerId && x.Date >= startDateOnly)
-            .Include(x => x.Player)
-            .ToListAsync();
-
-        var totalPlaytime = sessions.Sum(x => x.TimePlayedInSession ?? 0);
-
-        var dates = sessions.Select(x => x.Date).ToList();
-
-        var today = DateOnly.FromDateTime(DateTime.Today);
-        for (var date = startDateOnly; date < today; date = date.AddDays(1))
-            if (!dates.Contains(date))
-                sessions.Add(new PlayerSession
-                {
-                    Date = date,
-                    TimePlayedInSession = 0
-                });
-
-        sessions = sessions.OrderBy(x => x.Date).ToList();
-
-        return new PlayerQuery
-        {
-            PlayerSessions = sessions,
-            TotalPlaytime = totalPlaytime
-        };
-    }
-
     public async Task UpdateLedger(MCStatus.Player[] playerData, int elapsedSeconds)
     {
         foreach (var player in playerData)

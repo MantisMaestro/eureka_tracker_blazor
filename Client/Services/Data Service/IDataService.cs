@@ -16,9 +16,7 @@ public interface IDataService
     public Task<List<PlayerPlaytime>> GetMonthTopPlayers(int limit);
 
     public Task<List<PlayerPlaytime>> GetMapTopPlayers(int limit, DateOnly currentMapStartDate);
-
-    public Task<PlayerQuery?> GetPlayerSessions(string playerName);
-
+    
     public Task UpdateLedger(MCStatus.Player[] playerData, int elapsedSeconds);
 
     public Task UpdatePlayers(string playerName, string playerId, int elapsedSeconds);

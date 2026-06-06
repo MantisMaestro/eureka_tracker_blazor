@@ -24,10 +24,17 @@
     [Parameter] public int OnlineNow { get; set; }
 
     private string? IpAddress { get; set; }
+    private string? _configuredIpAddress;
 
     protected override Task OnInitializedAsync()
     {
-        IpAddress = Configuration["Server:IpAddress"] ?? "173.240.152.72:9000";
+        var ip = Configuration["Server:IP"];
+        var port = Configuration["Server:Port"];
+        _configuredIpAddress = !string.IsNullOrEmpty(ip) && !string.IsNullOrEmpty(port)
+            ? $"{ip}:{port}"
+            : (Configuration["Server:IpAddress"] ?? "173.240.152.72:9000");
+
+        IpAddress = _configuredIpAddress;
         return base.OnInitializedAsync();
     }
 
@@ -37,7 +44,7 @@
         IpAddress = "Copied to Clipboard!";
         StateHasChanged();
         await Task.Delay(2000);
-        IpAddress = "173.240.152.72:9000";
+        IpAddress = _configuredIpAddress;
         StateHasChanged();
     }
 
